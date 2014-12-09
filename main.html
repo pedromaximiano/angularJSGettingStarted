@@ -1,0 +1,10 @@
+<div class="row">
+  <form ng-submit="hello.search(hello.username)">
+    <div class="col-md-6">
+      <input class="form-control" required type="search" placeholder="username" ng-model="hello.username" />
+    </div>
+    <div class="col-md-2">
+      <input class="form-control" type="submit" value="Search" /><span ng-show="hello.countdownActive" class="badge">({{hello.countdown}})</span>
+    </div>
+  </form>
+</div>

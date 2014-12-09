@@ -1,0 +1,14 @@
+/* Styles go here */
+
+/* This is used with ngCloak when it loads from the bottom of the html */
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+a {
+  cursor: pointer;
+}
+
+ul {
+  list-style-type: none;
+}

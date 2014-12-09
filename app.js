@@ -11,8 +11,13 @@
         controller: 'HelloCtrl',
         controllerAs: 'hello'
       })
+      .when("/user/:username", {
+        templateUrl: 'user.html',
+        controller: 'userController',
+        controllerAs: 'user'
+      })
       .otherwise({
-        redirectTo: '/main.html'
+        redirectTo: '/'
       });
   });
 }());

@@ -5,7 +5,7 @@
   var app = angular.module('HelloApp', []);
 
   // the HelloController
-  var HelloController = function ($http, $interval, $log, $anchorScroll, $location) {
+  var HelloController = function ($interval, $log, $anchorScroll, $location, github) {
     var vm = this;
 
     vm.error = false;
@@ -14,24 +14,22 @@
     vm.countdown = 5;
     vm.countdownActive = null;
 
-    function onError(data) {
+    function onError(response) {
       vm.error = true;
-      vm.reason = data || "Error getting data";
-      $log.error("Error: " + (data.message || "Error getting data"));
+      vm.reason = response.data.message || "Error getting data";
+      $log.error("Error: " + (response.data.message || "Error getting data"));
     }
 
-    function onReposSuccess(data) {
-      vm.repos = data;
+    function onReposSuccess(response) {
+      vm.repos = response;
       vm.error = false;
     }
 
-    function onUserSuccess(data) {
+    function onUserSuccess(response) {
+      vm.user = response;
       vm.error = false;
-      vm.user = data;
 
-      $http.get('https://api.github.com/users/' + vm.username + '/repos')
-        .success(onReposSuccess)
-        .error(onError);
+      github.getRepos(vm.username).then(onReposSuccess, onError);
       $location.hash("userDetails");
       $anchorScroll();
     }
@@ -45,9 +43,7 @@
 
     vm.search = function () {
       $log.info("Searching for " + vm.username);
-      $http.get('https://api.github.com/users/' + vm.username)
-        .success(onUserSuccess)
-        .error(onError);
+      github.getUser(vm.username).then(onUserSuccess, onError);
       if (vm.countdownActive) {
         $interval.cancel(vm.countdownActive);
         vm.countdownActive = null;
@@ -62,5 +58,5 @@
   };
 
   // register the HelloController with angular
-  app.controller('HelloCtrl', ['$http', '$interval', '$log', '$anchorScroll', '$location', HelloController]);
+  app.controller('HelloCtrl', ['$interval', '$log', '$anchorScroll', '$location', 'github', HelloController]);
 }());

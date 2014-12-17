@@ -6,18 +6,18 @@
 
   app.config(function ($routeProvider) {
     $routeProvider
-      .when('/', {
+      .when('/main', {
         templateUrl: 'main.html',
         controller: 'MainCtrl',
         controllerAs: 'hello'
       })
-      .when("/user/:username", {
+      .when('/user/:username', {
         templateUrl: 'user.html',
         controller: 'UserCtrl',
         controllerAs: 'user'
       })
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/main'
       });
   });
 }());

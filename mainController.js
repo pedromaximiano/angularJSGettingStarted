@@ -1,9 +1,9 @@
-// hello-controller.js
+// mainController.js
 
 (function () {
   "use strict";
 
-  var HelloController = function ($interval, $log, $anchorScroll, $location, github) {
+  var MainController = function ($interval, $log, $anchorScroll, $location, github) {
     var vm = this;
 
     vm.error = false;
@@ -58,5 +58,5 @@
   // register the HelloController with angular
   var app = angular.module('HelloApp');
 
-  app.controller('HelloCtrl', ['$interval', '$log', '$anchorScroll', '$location', 'github', HelloController]);
+  app.controller('MainCtrl', ['$interval', '$log', '$anchorScroll', '$location', 'github', MainController]);
 }());

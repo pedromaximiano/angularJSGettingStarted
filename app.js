@@ -8,12 +8,12 @@
     $routeProvider
       .when('/', {
         templateUrl: 'main.html',
-        controller: 'HelloCtrl',
+        controller: 'MainCtrl',
         controllerAs: 'hello'
       })
       .when("/user/:username", {
         templateUrl: 'user.html',
-        controller: 'userController',
+        controller: 'UserCtrl',
         controllerAs: 'user'
       })
       .otherwise({

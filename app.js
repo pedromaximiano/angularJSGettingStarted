@@ -16,6 +16,11 @@
         controller: 'UserCtrl',
         controllerAs: 'user'
       })
+      .when('/user/:username/:repo', {
+        templateUrl: 'repo.html',
+        controller: 'RepoCtrl',
+        controllerAs: 'repo'
+      })
       .otherwise({
         redirectTo: '/main'
       });

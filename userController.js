@@ -3,19 +3,14 @@
 (function () {
   "use strict";
 
-  var UserController = function ($interval, $log, $anchorScroll, $location, github) {
+  var UserController = function (github, $routeParams) {
     var vm = this;
 
-    vm.error = false;
-    vm.message = "GitHub Projects";
-    vm.username = '';
-    vm.countdown = 5;
-    vm.countdownActive = null;
+    vm.username = $routeParams.username;
 
     function onError(response) {
       vm.error = true;
       vm.reason = response.data.message || "Error getting data";
-      $log.error("Error: " + (response.data.message || "Error getting data"));
     }
 
     function onReposSuccess(response) {
@@ -28,35 +23,13 @@
       vm.error = false;
 
       github.getRepos(vm.username).then(onReposSuccess, onError);
-      $location.hash("userDetails");
-      $anchorScroll();
     }
 
-    function decrementCountdown() {
-      vm.countdown -= 1;
-      if (vm.countdown < 1) {
-        vm.search();
-      }
-    }
-
-    vm.search = function () {
-      $log.info("Searching for " + vm.username);
-      github.getUser(vm.username).then(onUserSuccess, onError);
-      if (vm.countdownActive) {
-        $interval.cancel(vm.countdownActive);
-        vm.countdownActive = null;
-      }
-    };
-
-    vm.startCountdown = function () {
-      vm.countdownActive = $interval(decrementCountdown, 1000, vm.countdown);
-    };
-
-    vm.startCountdown();
+    github.getUser(vm.username).then(onUserSuccess, onError);
   };
 
   // register the HelloController with angular
   var app = angular.module('HelloApp');
 
-  app.controller('UserCtrl', ['$interval', '$log', '$anchorScroll', '$location', 'github', UserController]);
+  app.controller('UserCtrl', ['github', '$routeParams', UserController]);
 }());

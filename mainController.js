@@ -6,23 +6,23 @@
   var MainController = function ($interval, $location) {
     var vm = this;
 
-    vm.username = '';
+    vm.username = 'angular';
     vm.countdown = 5;
     vm.countdownActive = null;
 
     function decrementCountdown() {
       vm.countdown -= 1;
       if (vm.countdown < 1) {
-        vm.search();
+        vm.search(vm.username);
       }
     }
 
-    vm.search = function () {
+    vm.search = function (username) {
       if (vm.countdownActive) {
         $interval.cancel(vm.countdownActive);
         vm.countdownActive = null;
       }
-      //
+      $location.path('/user/' + username);
     };
 
     vm.startCountdown = function () {

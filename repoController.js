@@ -28,7 +28,7 @@
     github.getRepo(vm.username, vm.repo).then(onRepoSuccess, onError);
   };
 
-  // register the HelloController with angular
+  // register the RepoController with angular
   var app = angular.module('HelloApp');
 
   app.controller('RepoCtrl', ['github', '$routeParams', RepoController]);

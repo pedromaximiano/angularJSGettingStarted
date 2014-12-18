@@ -1,0 +1,31 @@
+<div>
+  <h2>{{repo.username}}'s {{repo.repo}}</h2>
+  <ul>
+    <li>
+      <table class="table table-striped" title="Contributors">
+        <thead>
+          <th>Name</th>
+          <th>Avatar</th>
+          <th>Contributions</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="cons in repo.contributors | orderBy:'contributions':true">
+            <td><a ng-href="#/user/{{cons.login}}"><strong>{{cons.login}}</strong></a>
+            </td>
+            <td>
+              <img ng-src={{cons.avatar_url}} width="40px" alt="{{cons.login}}">
+            </td>
+            <td>{{cons.contributions}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </li>
+    <li>
+      <a ng-href="#/user/{{repo.username}}" class="btn btn-default">Back</a>
+    </li>
+  </ul>
+</div>
+<div ng-show="repo.error" class="col-md-6">
+  <h3>Error!</h3>
+  <span>{{repo.reason}}</span>
+</div>
